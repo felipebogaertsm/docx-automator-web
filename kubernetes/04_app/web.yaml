@@ -1,0 +1,47 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+    name: docx-automator-web
+    namespace: docx-automator
+    annotations:
+        config.nsm.nginx.com/default-egress-allowed: "true"
+        config.nsm.nginx.com/enable-egress: "true"
+spec:
+    replicas: 3
+    selector:
+        matchLabels:
+            app: docx-automator-web
+    strategy:
+        rollingUpdate:
+            maxSurge: 1
+            maxUnavailable: 0
+        type: RollingUpdate
+    template:
+        metadata:
+            labels:
+                app: docx-automator-web
+        spec:
+            containers:
+                - image: felipebogaertsm/docx_automator_web@sha256:556e7835743147cb94c6819ab867b9a70a8fee45068465bb9033bc3bf5d4c003
+                  imagePullPolicy: Always
+                  name: docx-automator-web
+                  ports:
+                      - containerPort: 8000
+                        name: gunicorn
+            dnsPolicy: ClusterFirst
+            securityContext: {}
+status: {}
+---
+apiVersion: v1
+kind: Service
+metadata:
+    name: docx-automator-web
+    namespace: docx-automator
+spec:
+    type: ClusterIP
+    selector:
+        app: docx-automator-web
+    ports:
+        - protocol: TCP
+          port: 8000
+          targetPort: 8000 # must match the deployment's port
