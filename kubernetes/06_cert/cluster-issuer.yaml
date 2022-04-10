@@ -1,0 +1,15 @@
+apiVersion: cert-manager.io/v1
+kind: ClusterIssuer
+metadata:
+  name: docx-automator-letsencrypt
+  namespace: docx-automator
+spec:
+  acme:
+    server: https://acme-v02.api.letsencrypt.org/directory
+    email: felipebogaerts@gmail.com
+    privateKeySecretRef:
+      name: docx-automator-letsencrypt
+    solvers:
+      - http01:
+          ingress:
+            class: nginx

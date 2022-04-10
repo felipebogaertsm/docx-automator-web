@@ -1,0 +1,29 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: ingress-hosts
+  namespace: docx-automator
+  annotations:
+    kubernetes.io/ingress.class: "nginx"
+    cert-manager.io/cluster-issuer: "docx-automator-letsencrypt"
+    nginx.ingress.kubernetes.io/proxy-body-size: 25m
+    nginx.ingress.kubernetes.io/proxy-connect-timeout: "360"
+    nginx.ingress.kubernetes.io/proxy-send-timeout: "360"
+    nginx.ingress.kubernetes.io/proxy-read-timeout: "360"
+    nginx.ingress.kubernetes.io/proxy-next-upstream-timeout: "360"
+spec:
+  tls:
+    - hosts:
+      - "docx-automator.felipebm.com"
+      secretName: "docx-automator-tls"
+  rules:
+    - host: docx-automator.felipebm.com
+      http:
+        paths:
+          - pathType: "Prefix"
+            path: "/"
+            backend:
+                service:
+                    name: docx-automator-web
+                    port:
+                        number: 8000
