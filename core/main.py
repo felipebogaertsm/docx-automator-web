@@ -1,7 +1,7 @@
 import datetime
 import json
 
-from docxtpl import DocxTemplate, InlineImage, RichText
+from docxtpl import DocxTemplate, InlineImage
 from docx.shared import Mm
 
 
@@ -12,7 +12,6 @@ def get_datetime_ctx():
 
 if __name__ == "__main__":
     document = DocxTemplate("../samples/template.docx")
-    rt = RichText()
 
     with open("../samples/data.json") as data_file:
         context = json.load(data_file)  # getting context from json file

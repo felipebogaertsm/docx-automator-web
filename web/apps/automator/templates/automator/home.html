@@ -6,7 +6,8 @@
   </div>
 
   <div class="py-4">
-    <form method="POST">
+    <form method="POST" enctype="multipart/form-data">
+      {% csrf_token %}
       <div class="py-2">
         <label class="form-label" for="template"
           >Upload a valid DOCX Template</label
@@ -15,12 +16,19 @@
       </div>
       <div class="py-2">
         <label class="form-label" for="template">Upload a json file</label>
-        <input class="form-control" type="file" name="template" />
+        <input class="form-control" type="file" name="data" />
       </div>
       <button type="submit" class="btn btn-outline-primary mt-4 mb-2">
         Automate
       </button>
     </form>
+  </div>
+
+  <div class="py-2">
+    <div class="alert alert-success p-2">
+      <div class="mb-2">Document automated successfully.</div>
+      <a class="btn btn-success">Download document</a>
+    </div>
   </div>
 </div>
 
