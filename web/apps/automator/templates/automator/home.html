@@ -1,0 +1,18 @@
+{% extends 'automator/base.html' %} {% block content %}
+
+<div class="container">
+  <div>DOCX Automator</div>
+  <div>
+    <form method="POST">
+      <div class="my-2">
+        <label class="form-label" for="template"
+          >Upload a valid DOCX Template</label
+        >
+        <input class="form-control" type="file" name="template" />
+      </div>
+      <button type="submit" class="btn btn-outline-primary">Automate</button>
+    </form>
+  </div>
+</div>
+
+{% endblock %}

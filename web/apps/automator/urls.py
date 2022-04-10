@@ -1,7 +1,7 @@
 from django.urls import path
 
-from apps.automator.views import home_page
+from apps.automator.views import HomePage
 
 urlpatterns = [
-    path("", home_page),
+    path("", HomePage.as_view()),
 ]
