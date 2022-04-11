@@ -22,8 +22,11 @@ spec:
                 app: docx-automator-web
         spec:
             containers:
-                - image: felipebogaertsm/docx_automator_web@sha256:f5a7292cbb87b980b02854a233d3711269392eb1d0a5a66633615ac3204412cf
+                - image: felipebogaertsm/docx_automator_web@sha256:e6758e157449c0acbdfd5bfc4bff87d9bd254aba19fff75c7dc419224cdec28f
                   imagePullPolicy: Always
+                  envFrom:
+                    - secretRef:
+                        name: docx-automator-secrets
                   name: docx-automator-web
                   ports:
                       - containerPort: 8000
