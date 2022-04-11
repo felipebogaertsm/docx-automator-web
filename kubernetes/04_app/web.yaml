@@ -22,7 +22,7 @@ spec:
                 app: docx-automator-web
         spec:
             containers:
-                - image: felipebogaertsm/docx_automator_web@sha256:556e7835743147cb94c6819ab867b9a70a8fee45068465bb9033bc3bf5d4c003
+                - image: felipebogaertsm/docx_automator_web@sha256:f5a7292cbb87b980b02854a233d3711269392eb1d0a5a66633615ac3204412cf
                   imagePullPolicy: Always
                   name: docx-automator-web
                   ports:

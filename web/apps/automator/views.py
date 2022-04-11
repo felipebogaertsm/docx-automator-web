@@ -1,7 +1,9 @@
+import io
 import json
 
 from docxtpl import DocxTemplate
 
+from django.http import HttpResponse
 from django.shortcuts import render
 from django.views import View
 
@@ -18,11 +20,17 @@ class HomePage(View):
         data_file = files["data"]
 
         document = DocxTemplate(template_file)
-
         context = json.load(data_file)  # getting context from json file
-
         context = {**context, **get_datetime_ctx()}
-
         document.render(context)
 
-        return render(request, "automator/home.html", {"document": document})
+        bio = io.BytesIO()
+        document.save(bio)
+
+        response = HttpResponse(
+            bio.getvalue(), content_type="application/force-download"
+        )
+        response["Content-Disposition"] = "attachment; filename=document.docx"
+        response["Content-Encoding"] = "UTF-8"
+
+        return response
